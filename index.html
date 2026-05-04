@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aries Jefferson Salcedo — Senior Systems Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #1a1814; --ink-2: #4a4740; --ink-3: #8a8680;
+      --paper: #f7f4ef; --paper-2: #eeebe4;
+      --accent: #c85a2a; --accent-light: #f0d5c8;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 3rem;
+      background: rgba(247,244,239,0.88); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26,24,20,0.08);
+    }
+    .nav-logo { font-family: var(--serif); font-size: 1.2rem; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    .hero {
+      min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; padding: 0 3rem; gap: 4rem; padding-top: 80px;
+    }
+    .hero-text { max-width: 540px; }
+    .hero-eyebrow {
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-eyebrow::before { content:''; display:block; width:2rem; height:1px; background:var(--accent); }
+    h1 { font-family: var(--serif); font-size: clamp(2.8rem,5.5vw,4.5rem); line-height: 1.05; margin-bottom: 1rem; }
+    h1 em { font-style: italic; color: var(--accent); }
+    .hero-role { font-size: 0.9rem; font-weight: 500; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.5rem; }
+    .hero-sub { font-size: 1rem; font-weight: 300; color: var(--ink-2); line-height: 1.75; margin-bottom: 2.5rem; max-width: 440px; }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.875rem 1.75rem; background: var(--ink); color: var(--paper);
+      text-decoration: none; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.875rem 1.75rem; border: 1px solid var(--ink); color: var(--ink);
+      text-decoration: none; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { background: var(--paper-2); transform: translateY(-2px); }
+    .arrow { transition: transform 0.2s; display:inline-block; }
+    .btn-primary:hover .arrow, .btn-secondary:hover .arrow { transform: translateX(4px); }
+
+    .hero-visual { position: relative; display: flex; justify-content: center; align-items: center; }
+    .avatar-wrap { position: relative; width: 300px; height: 380px; }
+    .avatar-bg { position: absolute; inset: 0; background: var(--accent-light); border-radius: 2px; transform: rotate(3deg); }
+    .avatar-frame {
+      position: absolute; inset: 0; border: 2px solid var(--ink); border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--paper-2); overflow: hidden;
+    }
+    .avatar-placeholder { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--ink-3); }
+    .avatar-placeholder span { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    .floating-tag {
+      position: absolute; background: var(--ink); color: var(--paper);
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; padding: 0.5rem 1rem; white-space: nowrap;
+    }
+    .tag-1 { bottom: -14px; right: -20px; }
+    .tag-2 { top: -14px; left: -28px; background: var(--accent); }
+
+    section { padding: 6rem 3rem; }
+    .section-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 0.75rem; }
+    h2 { font-family: var(--serif); font-size: clamp(2rem,4vw,2.8rem); line-height: 1.1; margin-bottom: 3rem; }
+
+    #about { background: var(--paper-2); border-top: 1px solid rgba(26,24,20,0.08); border-bottom: 1px solid rgba(26,24,20,0.08); }
+    .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 5rem; align-items: start; max-width: 1000px; }
+    .about-body { font-size: 1rem; font-weight: 300; color: var(--ink-2); line-height: 1.85; }
+    .about-body p + p { margin-top: 1.25rem; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+    .stat-box { border-left: 2px solid var(--accent); padding-left: 1rem; }
+    .stat-num { font-family: var(--serif); font-size: 2.4rem; color: var(--ink); line-height: 1; }
+    .stat-label { font-size: 0.78rem; color: var(--ink-3); margin-top: 0.3rem; letter-spacing: 0.04em; }
+    .avail-badge { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: var(--ink-2); margin-bottom: 0.4rem; }
+    .avail-badge::before { content: '✓'; color: var(--accent); font-weight: 700; }
+
+    .exp-list { display: flex; flex-direction: column; max-width: 820px; }
+    .exp-item {
+      padding: 2rem 0; border-bottom: 1px solid rgba(26,24,20,0.08);
+      display: grid; grid-template-columns: 180px 1fr; gap: 2rem; align-items: start;
+    }
+    .exp-date { font-size: 0.78rem; color: var(--ink-3); letter-spacing: 0.03em; padding-top: 0.3rem; line-height: 1.6; }
+    .exp-company { font-size: 0.8rem; font-weight: 500; color: var(--accent); margin-top: 0.25rem; }
+    .exp-title { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .exp-bullets { padding-left: 1rem; }
+    .exp-bullets li { font-size: 0.875rem; font-weight: 300; color: var(--ink-2); line-height: 1.7; margin-bottom: 0.3rem; }
+
+    #skills { background: var(--paper-2); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 3rem; }
+    .skill-group h3 { font-family: var(--serif); font-size: 1.1rem; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(26,24,20,0.1); }
+    .skill-item { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; font-size: 0.85rem; color: var(--ink-2); border-bottom: 1px solid rgba(26,24,20,0.05); }
+    .skill-bar { width: 80px; height: 3px; background: var(--paper); position: relative; overflow: hidden; flex-shrink: 0; }
+    .skill-fill { position: absolute; inset: 0; background: var(--accent); transform-origin: left; animation: fillBar 1.2s ease-out forwards; }
+    @keyframes fillBar { from { transform: scaleX(0); } to { transform: scaleX(var(--pct)); } }
+    .tech-cloud { margin-top: 3rem; }
+    .tech-cloud h3 { font-family: var(--serif); font-size: 1.1rem; margin-bottom: 1.25rem; }
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tech-tag {
+      font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.35rem 0.85rem; border: 1px solid rgba(26,24,20,0.2); color: var(--ink-2);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .tech-tag:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+
+    .contact-inner { max-width: 600px; }
+    .contact-lead { font-size: 1rem; font-weight: 300; color: var(--ink-2); line-height: 1.75; margin-bottom: 3rem; }
+    .contact-links { display: flex; flex-direction: column; }
+    .contact-link {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 0; border-bottom: 1px solid rgba(26,24,20,0.1);
+      text-decoration: none; color: var(--ink); transition: color 0.2s;
+    }
+    .contact-link:hover { color: var(--accent); }
+    .contact-link .link-arrow { font-size: 1.2rem; transition: transform 0.2s; }
+    .contact-link:hover .link-arrow { transform: translate(4px,-4px); }
+    .contact-link-label { font-size: 0.75rem; color: var(--ink-3); margin-top: 0.2rem; letter-spacing: 0.05em; }
+
+    footer {
+      padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(26,24,20,0.08); font-size: 0.8rem; color: var(--ink-3);
+    }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1rem; }
+      .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; min-height: auto; gap: 3rem; }
+      .hero-visual { order: -1; }
+      .avatar-wrap { width: 200px; height: 260px; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.25rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">Aries Salcedo</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text reveal">
+      <p class="hero-eyebrow">Open to Remote Work</p>
+      <h1>Aries Jefferson <em>Salcedo</em></h1>
+      <p class="hero-role">Senior Systems Engineer · Tech VA · Remote IT Specialist</p>
+      <p class="hero-sub">Results-driven IT professional with over 20 years of hands-on experience in systems engineering, enterprise IT support, and cloud infrastructure — delivering world-class remote IT services to international clients.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-primary">Get in touch <span class="arrow">→</span></a>
+        <a href="#experience" class="btn-secondary">View experience <span class="arrow">→</span></a>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="avatar-wrap">
+        <div class="avatar-bg"></div>
+        <div class="avatar-frame">
+          <!-- To add your photo, replace this block with:
+               <img src="photo.jpg" alt="Aries Jefferson Salcedo" style="width:100%;height:100%;object-fit:cover;object-position:center top"> -->
+          <div class="avatar-placeholder">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="24" r="14" stroke="#1a1814" stroke-width="1.5"/>
+              <path d="M8 56c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="#1a1814" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span>Add your photo</span>
+          </div>
+        </div>
+        <div class="floating-tag tag-2">20+ Years Experience</div>
+        <div class="floating-tag tag-1">📍 Cebu, Philippines</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="section-label">01 — About</p>
+        <h2>A little about me</h2>
+        <div class="about-body">
+          <p>I'm a Senior Systems Engineer with over two decades of enterprise IT experience, having worked with global organizations including Accenture, Manulife, and Netrix Global. My expertise spans systems engineering, cloud administration, network security, and automation scripting.</p>
+          <p>Based in Carcar City, Cebu, I specialize in remote IT support and Tech VA services for international clients. I bring Level 3 technical depth combined with strong English communication skills — making me an effective, self-managed partner for US, UK, and Australian teams.</p>
+          <p>I hold a BS in Electronics & Communications Engineering from Cebu Institute of Technology University and maintain flexible availability across multiple time zones.</p>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="about-stats">
+          <div class="stat-box"><div class="stat-num">20+</div><div class="stat-label">Years of experience</div></div>
+          <div class="stat-box"><div class="stat-num">L3</div><div class="stat-label">Support level</div></div>
+          <div class="stat-box"><div class="stat-num">3</div><div class="stat-label">Global enterprises</div></div>
+          <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">Curiosity</div></div>
+        </div>
+        <div class="avail-badge">Full-time Remote</div>
+        <div class="avail-badge">Part-time / Freelance</div>
+        <div class="avail-badge">US / UK / AU Time Zones</div>
+        <div class="avail-badge">Stable internet + backup connection</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <p class="section-label">02 — Experience</p>
+    <h2>Professional history</h2>
+    <div class="exp-list">
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-date">Oct 2024 – Present</div>
+          <div class="exp-company">Thrive (via Ayala) · Cebu</div>
+        </div>
+        <div>
+          <div class="exp-title">Systems Engineer</div>
+          <ul class="exp-bullets">
+            <li>Monitor and maintain enterprise system performance, availability, and security across multiple platforms.</li>
+            <li>Automate repetitive IT tasks using PowerShell, Bash, and Python to improve operational efficiency.</li>
+            <li>Lead backup and disaster recovery planning, testing, and implementation.</li>
+            <li>Manage user accounts, access controls, system permissions, and Active Directory configurations.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-date">Oct 2023 – Oct 2024</div>
+          <div class="exp-company">QWRK Outsourcing · Cebu City</div>
+        </div>
+        <div>
+          <div class="exp-title">ICT Coordinator Level 2</div>
+          <ul class="exp-bullets">
+            <li>Delivered second-level technical support for hardware, software, network, and cloud system issues.</li>
+            <li>Managed Microsoft 365 (Teams, SharePoint, Outlook) and enterprise application support.</li>
+            <li>Monitored IT infrastructure including servers, networks, firewalls, VPNs, and endpoints.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-date">Jan 2023 – Dec 2023</div>
+          <div class="exp-company">PCS via Upwork · Remote</div>
+        </div>
+        <div>
+          <div class="exp-title">Systems Specialist (Freelance)</div>
+          <ul class="exp-bullets">
+            <li>Provided remote system administration and advanced IT support to international clients.</li>
+            <li>Implemented security policies, conducted vulnerability assessments, and managed user access controls.</li>
+            <li>Automated workflows and integrated business applications with existing IT infrastructure.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-date">Apr 2020 – Mar 2023</div>
+          <div class="exp-company">Netrix Global · Cebu</div>
+        </div>
+        <div>
+          <div class="exp-title">Senior IT Support Engineer</div>
+          <ul class="exp-bullets">
+            <li>Provided advanced Level 3 support — root cause analysis and implementation of long-term solutions.</li>
+            <li>Managed enterprise infrastructure: servers, storage, cloud environments, and network devices.</li>
+            <li>Mentored junior IT staff; served as primary technical escalation point for the support team.</li>
+            <li>Maintained full compliance with ISO and NIST security standards across all IT operations.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-date">Jan 2017 – Feb 2020</div>
+          <div class="exp-company">Manulife Philippines · Cebu</div>
+        </div>
+        <div>
+          <div class="exp-title">Desktop Support Engineer & Field Technician</div>
+          <ul class="exp-bullets">
+            <li>Supported desktops, laptops, printers, and peripherals across multiple office locations.</li>
+            <li>Set up video conferencing systems, telephony, and network devices on-site.</li>
+            <li>Managed Active Directory accounts and Microsoft 365 applications for enterprise users.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-date">Mar 2016 – Feb 2017</div>
+          <div class="exp-company">Atos Outsourcing · Cebu</div>
+        </div>
+        <div>
+          <div class="exp-title">IT Support Engineer Level 1 & 2</div>
+          <ul class="exp-bullets">
+            <li>Delivered first and second-level IT support via phone, email, chat, and on-site visits.</li>
+            <li>Supported Microsoft 365, Active Directory, LAN, Wi-Fi, VPN, and endpoint configurations.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-date">Jan 2011 – Mar 2015</div>
+          <div class="exp-company">Accenture · Cebu</div>
+        </div>
+        <div>
+          <div class="exp-title">Data Analyst / IT Support Specialist</div>
+          <ul class="exp-bullets">
+            <li>Performed dual roles in IT support and data analytics for enterprise clients across multiple business units.</li>
+            <li>Built Power BI dashboards and advanced Excel reports; automated data processes using Python and VBA.</li>
+            <li>Developed IT troubleshooting guides and conducted training sessions for end-users and new team members.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="skills">
+    <p class="section-label">03 — Skills</p>
+    <h2>What I work with</h2>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <h3>Systems & Cloud</h3>
+        <div class="skill-item">Windows Server / Linux <div class="skill-bar"><div class="skill-fill" style="--pct:0.95"></div></div></div>
+        <div class="skill-item">Microsoft Azure <div class="skill-bar"><div class="skill-fill" style="--pct:0.88"></div></div></div>
+        <div class="skill-item">Active Directory <div class="skill-bar"><div class="skill-fill" style="--pct:0.95"></div></div></div>
+        <div class="skill-item">VMware / Hyper-V <div class="skill-bar"><div class="skill-fill" style="--pct:0.85"></div></div></div>
+      </div>
+      <div class="skill-group reveal">
+        <h3>Scripting & Automation</h3>
+        <div class="skill-item">PowerShell <div class="skill-bar"><div class="skill-fill" style="--pct:0.92"></div></div></div>
+        <div class="skill-item">Python <div class="skill-bar"><div class="skill-fill" style="--pct:0.85"></div></div></div>
+        <div class="skill-item">Bash <div class="skill-bar"><div class="skill-fill" style="--pct:0.88"></div></div></div>
+        <div class="skill-item">Power Automate / VBA <div class="skill-bar"><div class="skill-fill" style="--pct:0.80"></div></div></div>
+      </div>
+      <div class="skill-group reveal">
+        <h3>Data & Reporting</h3>
+        <div class="skill-item">Power BI <div class="skill-bar"><div class="skill-fill" style="--pct:0.88"></div></div></div>
+        <div class="skill-item">SQL <div class="skill-bar"><div class="skill-fill" style="--pct:0.82"></div></div></div>
+        <div class="skill-item">Advanced Excel <div class="skill-bar"><div class="skill-fill" style="--pct:0.90"></div></div></div>
+      </div>
+      <div class="skill-group reveal">
+        <h3>Security & Compliance</h3>
+        <div class="skill-item">Endpoint Security <div class="skill-bar"><div class="skill-fill" style="--pct:0.92"></div></div></div>
+        <div class="skill-item">VPN / Firewall Mgmt <div class="skill-bar"><div class="skill-fill" style="--pct:0.90"></div></div></div>
+        <div class="skill-item">ISO / NIST Standards <div class="skill-bar"><div class="skill-fill" style="--pct:0.85"></div></div></div>
+      </div>
+    </div>
+    <div class="tech-cloud reveal">
+      <h3>Tools & Platforms</h3>
+      <div class="tech-tags">
+        <span class="tech-tag">Microsoft 365</span>
+        <span class="tech-tag">Google Workspace</span>
+        <span class="tech-tag">SharePoint</span>
+        <span class="tech-tag">Teams</span>
+        <span class="tech-tag">AWS</span>
+        <span class="tech-tag">AnyDesk</span>
+        <span class="tech-tag">TeamViewer</span>
+        <span class="tech-tag">Zoom</span>
+        <span class="tech-tag">Trello</span>
+        <span class="tech-tag">Notion</span>
+        <span class="tech-tag">Asana</span>
+        <span class="tech-tag">HubSpot</span>
+        <span class="tech-tag">ITIL Frameworks</span>
+        <span class="tech-tag">Group Policy</span>
+        <span class="tech-tag">Disaster Recovery</span>
+        <span class="tech-tag">Power Automate</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <p class="section-label">04 — Contact</p>
+    <div class="contact-inner reveal">
+      <h2>Let's work together</h2>
+      <p class="contact-lead">Looking for a reliable, senior-level remote IT professional? I'm available full-time or part-time across US, UK, and Australian time zones — with a stable internet connection and a backup. I typically respond within 24 hours.</p>
+      <div class="contact-links">
+        <a href="mailto:ariesjeffersonsalcedo@gmail.com" class="contact-link">
+          <div>
+            <div>ariesjeffersonsalcedo@gmail.com</div>
+            <div class="contact-link-label">Email me directly</div>
+          </div>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a href="tel:+639556257226" class="contact-link">
+          <div>
+            <div>+63 955 625 7226</div>
+            <div class="contact-link-label">Call or WhatsApp</div>
+          </div>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a href="https://www.upwork.com" class="contact-link" target="_blank" rel="noopener">
+          <div>
+            <div>Upwork</div>
+            <div class="contact-link-label">Hire me as a freelancer — add your profile URL here</div>
+          </div>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a href="https://linkedin.com" class="contact-link" target="_blank" rel="noopener">
+          <div>
+            <div>LinkedIn</div>
+            <div class="contact-link-label">Connect professionally — add your LinkedIn URL here</div>
+          </div>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Aries Jefferson Salcedo</span>
+    <span>Senior Systems Engineer · Carcar City, Cebu · Built on GitHub Pages</span>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 70);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
